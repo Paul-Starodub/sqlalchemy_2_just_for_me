@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, URL
+from sqlalchemy import create_engine, URL, text
 from sqlalchemy.orm import sessionmaker
 
 # URL format: dialect+driver://username:password@host:port/database
@@ -20,6 +20,5 @@ session_pool = sessionmaker(bind=engine)
 # session.close()
 
 with session_pool() as session:  # the second call returns the same session
-    print(session)
-    session.execute("")
-    session.commit()
+    session.execute(text("select 1"))
+    # session.commit()
