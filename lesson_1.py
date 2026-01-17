@@ -45,22 +45,29 @@ session_pool = sessionmaker(bind=engine)
 #     session.commit()
 
 
-with session_pool() as session:
-    insert_query = text(
-        """
-    INSERT INTO users (telegram_id, full_name, username, language_code, referrer_id)
-    VALUES (1, 'John Doe', 'johndoe', 'en', NULL),
-              (2, 'Jane Doe', 'janedoe', 'en', 1);
-    """
-    )
-    session.execute(insert_query)
-    session.commit()
+# with session_pool() as session:
+    # insert_query = text(
+    #     """
+    # INSERT INTO users (telegram_id, full_name, username, language_code, referrer_id)
+    # VALUES (1, 'John Doe', 'johndoe', 'en', NULL),
+    #           (2, 'Jane Doe', 'janedoe', 'en', 1);
+    # """
+    # )
+    # session.execute(insert_query)
+    # session.commit()
+    #
+    # select_query = text(
+    #     """
+    # SELECT * FROM users;
+    # """
+    # )
+    # result = session.execute(select_query)
+    # for row in result:
+    #     print(row.telegram_id)
 
-    select_query = text(
-        """
-    SELECT * FROM users;
-    """
-    )
-    result = session.execute(select_query)
-    for row in result:
-        print(row)
+with session_pool() as session:
+    result = session.execute(text("select * from users"))
+    rows = result.all()
+    # rows = result.first()
+    # rows = result.scalar()
+    print(rows)
